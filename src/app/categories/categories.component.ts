@@ -1,15 +1,14 @@
 import { AfterViewInit, Component, ViewChild } from '@angular/core';
-import { MatTableModule, MatTable, MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MatPaginatorModule, MatPaginator } from '@angular/material/paginator';
 import { MatSortModule, MatSort } from '@angular/material/sort';
 import { CategoriesDataSource, CategoriesItem } from './categories.datasource';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 import { Category } from './category.dto';
 import { CategoryService } from './category.service';
 import { lastValueFrom } from 'rxjs';
 import { CategoryFormComponent } from './form/form.component';
-import { MatIconModule } from '@angular/material/icon';
+import { LoadingBarComponent } from '../loading-bar.component';
+import { MaterialModule } from '../material.module';
 
 @Component({
   selector: 'app-categories',
@@ -21,13 +20,9 @@ import { MatIconModule } from '@angular/material/icon';
   `,
   standalone: true,
   imports: [
-    MatTableModule, 
-    MatPaginatorModule, 
-    MatSortModule, 
-    MatCardModule, 
-    MatButtonModule,
-    MatIconModule,
-    CategoryFormComponent
+    MaterialModule,
+    CategoryFormComponent,
+    LoadingBarComponent
    ]
 })
 export class CategoriesComponent implements AfterViewInit {
@@ -40,6 +35,7 @@ export class CategoriesComponent implements AfterViewInit {
   displayedColumns = ['id', 'name', 'description', 'actions'];
   showForm: Boolean = false;
   category!: Category;
+  showLoading: Boolean = false;
 
   onNewCategoryClick(){
     this.showForm = true;
@@ -75,7 +71,7 @@ export class CategoriesComponent implements AfterViewInit {
     this.table.dataSource = this.dataSource;
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    
+    this.showLoading = false;
   }
 
   onEditCategoryClick(category: Category){
@@ -95,6 +91,7 @@ export class CategoriesComponent implements AfterViewInit {
   async onDeleteCategoryClick(category: Category){
     if(confirm(`Delete "${category.name}" with id "${category.id}" ?`)){
       await lastValueFrom(this.categoryService.delete(category.id))
+      this.showLoading = false;
       this.loadCategories();
     }
   }

@@ -5,7 +5,15 @@
   "projects": {
     "my-sales-app-andy": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "@schematics/angular:application": {
+          "standalone": true
+        },
+        "@schematics/angular:component": {
+          "inlineStyle": true,
+          "skipTests": true
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",

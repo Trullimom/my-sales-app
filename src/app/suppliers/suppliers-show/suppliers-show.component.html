@@ -1,0 +1,11 @@
+@if(supplierObservable|async){
+    <mat-card-content>
+        <strong>{{supplier.companyName}}</strong> <br>
+        <p>{{supplier.contactName}} - {{supplier.address.phone}} </p> <br>
+    </mat-card-content>
+    <mat-card-actions>
+        <button mat-button [routerLink]="['/suppliers']">Back</button>
+    </mat-card-actions>
+} @else {
+    <loading-bar></loading-bar>
+}

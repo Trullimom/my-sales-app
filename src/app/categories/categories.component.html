@@ -2,6 +2,8 @@
   <mat-card-header>
     <mat-card-title>Categories</mat-card-title>
     <mat-card-subtitle>Listing all categories</mat-card-subtitle>
+
+    <loading-bar [visible]="showLoading"></loading-bar>
   </mat-card-header>
 
   @if(showForm){

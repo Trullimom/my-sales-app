@@ -1,18 +1,13 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatInputModule } from '@angular/material/input';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Category } from '../category.dto';
+import { MaterialModule } from '../../material.module';
 
 @Component({
   selector: 'category-form',
   standalone: true,
   imports: [
-    MatButtonModule,
-    MatInputModule,
-    MatCardModule,
-    ReactiveFormsModule,
+    MaterialModule
   ],
   templateUrl: './form.component.html',
   styles: ``,
